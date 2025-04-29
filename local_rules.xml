@@ -1,0 +1,47 @@
+Rule: Detect shadow copy deletion
+
+===================================================
+<group name="windows,sysmon,ransomware">
+  <rule id="100100" level="12">
+    <if_sid>61603</if_sid> <!-- Sysmon Process Create -->
+    <match>vssadmin.exe delete shadows</match>
+    <description>Ransomware activity: Shadow copy deletion</description>
+    <mitre>
+      <id>T1490</id>
+      <tactic>Impact</tactic>
+    </mitre>
+  </rule>
+</group>
+==================================================
+
+Rule 2: Detect file extension changes
+
+===================================================
+<rule id="100101" level="10">
+  <if_sid>61609</if_sid> <!-- File Create -->
+  <regex>\.locked$|\.crypted$|\.encrypted$</regex>
+  <description>Ransomware file extension detected</description>
+</rule>
+
+===================================================
+
+ Rule 3: Detect PowerShell encoded command
+
+=============================
+<rule id="100102" level="10">
+  <if_sid>61603</if_sid>
+  <match>powershell.exe</match>
+  <regex>-enc|-EncodedCommand</regex>
+  <description>Suspicious PowerShell encoded command</description>
+</rule>
+=============================
+
+🔹 Rule 4: Detect wmic shadowcopy deletion
+
+========================================
+<rule id="100103" level="12">
+  <if_sid>61603</if_sid>
+  <match>wmic shadowcopy delete</match>
+  <description>Ransomware: Shadow copy deletion via WMIC</description>
+</rule>
+========================================
