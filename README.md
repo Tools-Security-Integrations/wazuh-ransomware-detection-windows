@@ -45,21 +45,8 @@ Set-ExecutionPolicy RemoteSigned -Force
 
 ✅ STEP 4: Register Active Response on Wazuh
 
-⚙️ On Wazuh Manager
-🧾 Add This to /var/ossec/etc/ossec.conf:
-
-<active-response>
-  <command>disable-network</command>
-  <location>local</location>
-  <rules_id>100100,100101,100102,100103</rules_id>
-</active-response>
-
-<command>
-  <name>disable-network</name>
-  <executable>disable-network.ps1</executable>
-  <timeout_allowed>no</timeout_allowed>
-</command>
-
+⚙️ On Wazuh Manager 
+🧾 Add ActiveResponce to /var/ossec/etc/ossec.conf:
 
 📌 Restart manager:
 
